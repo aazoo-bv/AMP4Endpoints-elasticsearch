@@ -1,25 +1,52 @@
 #!/usr/bin/python
 
+import sys
 import json
 import requests
 import datetime
-from pprint import pprint
+import argparse
+#from pprint import pprint
 from requests.auth import HTTPBasicAuth
 from elasticsearch import Elasticsearch
 
-# Set to cron interval
+# Argument sane default options
 crontime=5
-# AMP4Endpoints API ID
 amp4e_user=''
-# AMP4Endpoints API Password
 amp4e_pass=''
-# AMP4Endpoints URL
 amp4e_url='https://api.eu.amp.cisco.com/v1/events?start_date='
-
-# Elasticsearch index prefix
 index_prefix='amp4e-'
-# Elasticsearch host, change if not localhost
-es = Elasticsearch('127.0.0.1')
+es_host='127.0.0.1'
+
+# Argument parser
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--crontime', nargs='?', const=crontime, type=int, help='Set to your cron interval')
+
+parser.add_argument('--amp4e-user', nargs='?', const=amp4e_user, type=str, help='AMP4Endpoints API ID')
+parser.add_argument('--amp4e-pass', nargs='?', const=amp4e_pass, type=str, help='AMP4Endpoints API Password')
+parser.add_argument('--amp4e-url', nargs='?', const=amp4e_url, type=str, help='AMP4Endpoints URL (including ?start_date=)')
+
+parser.add_argument('--index-prefix', nargs='?', const=index_prefix, type=str, help='Elasticseach index prefix')
+parser.add_argument('--es-host', nargs='?', const=es_host, type=str, help='Elasticseach host')
+
+args = parser.parse_args()
+
+# Set arguments
+if args.crontime:
+	crontime=args.crontime
+if args.amp4e_user:
+	amp4e_user=args.amp4e_user
+if args.amp4e_pass:
+	amp4e_pass=args.amp4e_pass
+if args.amp4e_url:
+	amp4e_url=args.amp4e_url
+if args.index_prefix:
+	index_prefix=args.index_prefix
+if args.es_host:
+	es_host=args.es_host
+
+# Actual code running below
+es = Elasticsearch(es_host)
 
 # Create timestamp to read data from AMP4Endpoints Event database
 timestamp =  datetime.datetime.now() - datetime.timedelta(minutes=crontime)
