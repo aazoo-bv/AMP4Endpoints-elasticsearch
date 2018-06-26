@@ -3,7 +3,8 @@ Index Events from AMP4Endpoints to ELK
 
 ## Install
 Clone repository to local
-Install the Elasticsearch Python module (pip install elasticsearch)
+
+Install the required Python modules (pip install -r requirements.txt)
 
 ## Usage
 Set crontime in index-amp4-events.py to the number of minutes you want to run in Crontab
