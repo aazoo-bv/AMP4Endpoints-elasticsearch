@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys
+#import sys
 import json
 import requests
 import datetime
@@ -26,8 +26,8 @@ parser.add_argument('--amp4e-user', nargs='?', const=amp4e_user, type=str, help=
 parser.add_argument('--amp4e-pass', nargs='?', const=amp4e_pass, type=str, help='AMP4Endpoints API Password')
 parser.add_argument('--amp4e-url', nargs='?', const=amp4e_url, type=str, help='AMP4Endpoints URL (including ?start_date=)')
 
-parser.add_argument('--index-prefix', nargs='?', const=index_prefix, type=str, help='Elasticseach index prefix')
-parser.add_argument('--es-host', nargs='?', const=es_host, type=str, help='Elasticseach host')
+parser.add_argument('--index-prefix', nargs='?', const=index_prefix, type=str, help='Elasticsearch index prefix')
+parser.add_argument('--es-host', nargs='?', const=es_host, type=str, help='Elasticsearch host')
 
 args = parser.parse_args()
 
