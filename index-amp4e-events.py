@@ -49,7 +49,7 @@ if args.es_host:
 es = Elasticsearch(es_host)
 
 # Create timestamp to read data from AMP4Endpoints Event database
-timestamp =  datetime.datetime.now() - datetime.timedelta(minutes=crontime)
+timestamp =  datetime.datetime.utcnow() - datetime.timedelta(minutes=crontime)
 formatted_timestamp = datetime.datetime.strftime(timestamp, '%Y-%m-%dT%H:%M:%S')
 
 # Format API URL with the timestamp
